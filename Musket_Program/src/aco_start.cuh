@@ -588,18 +588,18 @@ int run_aco(int ant, int iterations, int problem) {
     std::ifstream lerMapa;
 
 
-    std::string dji = "/home/n/n_herr03/musket-build/tsplib/djibouti.txt";
-    std::string lux = "/home/n/n_herr03/musket-build/tsplib/luxembourg.txt";
-    std::string cat = "/home/n/n_herr03/musket-build/tsplib/catar.txt";
-    std::string a280 = "/home/n/n_herr03/musket-build/tsplib/a280.txt";
-    std::string d198 = "/home/n/n_herr03/musket-build/tsplib/d198.txt";
-    std::string d1291 = "/home/n/n_herr03/musket-build/tsplib/d1291.txt";
-    std::string lin318 = "/home/n/n_herr03/musket-build/tsplib/lin318.txt";
-    std::string pcb442 = "/home/n/n_herr03/musket-build/tsplib/pcb442.txt";
-    std::string pcb1173 = "/home/n/n_herr03/musket-build/tsplib/pcb1173.txt";
-    std::string pr1002 = "/home/n/n_herr03/musket-build/tsplib/pr1002.txt";
-    std::string pr2392 = "/home/n/n_herr03/musket-build/tsplib/pr2392.txt";
-    std::string rat783 = "/home/n/n_herr03/musket-build/tsplib/rat783.txt";
+    std::string dji = "/home/ninaherrmann/Research/HLPP2020/public_programs/Musket_Program/tsplib/djibouti.txt";
+    std::string lux = "/home/ninaherrmann/Research/HLPP2020/public_programs/Musket_Program/tsplib/luxembourg.txt";
+    std::string cat = "/home/ninaherrmann/Research/HLPP2020/public_programs/Musket_Program/tsplib/catar.txt";
+    std::string a280 = "/home/ninaherrmann/Research/HLPP2020/public_programs/Musket_Program/tsplib/a280.txt";
+    std::string d198 = "/home/ninaherrmann/Research/HLPP2020/public_programs/Musket_Program/tsplib/d198.txt";
+    std::string d1291 = "/home/ninaherrmann/Research/HLPP2020/public_programs/Musket_Program/tsplib/d1291.txt";
+    std::string lin318 = "/home/ninaherrmann/Research/HLPP2020/public_programs/Musket_Program/tsplib/lin318.txt";
+    std::string pcb442 = "/home/ninaherrmann/Research/HLPP2020/public_programs/Musket_Program/tsplib/pcb442.txt";
+    std::string pcb1173 = "/home/ninaherrmann/Research/HLPP2020/public_programs/Musket_Program/tsplib/pcb1173.txt";
+    std::string pr1002 = "/home/ninaherrmann/Research/HLPP2020/public_programs/Musket_Program/tsplib/pr1002.txt";
+    std::string pr2392 = "/home/ninaherrmann/Research/HLPP2020/public_programs/Musket_Program/pr2392.txt";
+    std::string rat783 = "/home/ninaherrmann/Research/HLPP2020/public_programs/Musket_Program/tsplib/rat783.txt";
 
     switch (problem) {
         case 1:
@@ -713,7 +713,6 @@ int run_aco(int ant, int iterations, int problem) {
 
     double seconds_minkernel = 0.0;
     double seconds_updatephero0 = 0.0;
-    double seconds_kernel4 = 0.0;
     double seconds_kernel3 = 0.0;
     double seconds_updatephero12 = 0.0;
     for(int i = 0; ((i) < (iterations)); i++){
@@ -726,7 +725,6 @@ int run_aco(int ant, int iterations, int problem) {
         mkt::sync_streams();
         std::chrono::high_resolution_clock::time_point kernel3_end = std::chrono::high_resolution_clock::now();
         seconds_kernel3 += std::chrono::duration<double>(kernel3_end - kernel3_start).count();
-        seconds_kernel4 += std::chrono::duration<double>(kernel4_end - kernel4_start).count();
         std::chrono::high_resolution_clock::time_point updatephero0_start = std::chrono::high_resolution_clock::now();
         update_pheromones0_map_index_in_place_array_functor.ncities = ncities;
         update_pheromones0_map_index_in_place_array_functor.ants = ants;
@@ -759,11 +757,10 @@ int run_aco(int ant, int iterations, int problem) {
 	mkt::sync_streams();
     double d_seconds_minkernel = seconds_minkernel/iterations;
     double d_seconds_updatephero0 = seconds_updatephero0/iterations;
-    double d_seconds_kernel4 = seconds_kernel4/iterations;
     double d_seconds_kernel3 = seconds_kernel3/iterations;
     double d_seconds_updatephero12 = seconds_updatephero12/iterations;
-    printf("%0.5f;%0.5f;%0.5f;%0.5f;%0.5f;", d_seconds_kernel3, d_seconds_kernel4, d_seconds_updatephero0, d_seconds_minkernel, d_seconds_updatephero12);
-    printf("0;%0.5f;", try_bestroute);
+    printf("%0.5f;%0.5f;%0.5f;%0.5f;", d_seconds_kernel3, d_seconds_updatephero0, d_seconds_minkernel, d_seconds_updatephero12);
+    printf("%0.5f;", try_bestroute);
     mkt::sync_streams();
 
     return EXIT_SUCCESS;
